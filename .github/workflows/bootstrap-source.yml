@@ -26,6 +26,9 @@ jobs:
           base64 --decode /tmp/saveflow-deploy.b64 > /tmp/saveflow-deploy.tar.gz
           gzip -t /tmp/saveflow-deploy.tar.gz
           tar -xzf /tmp/saveflow-deploy.tar.gz --strip-components=1
+          # Keep the repository workflows exactly as they are so the GitHub
+          # App push does not require the special workflows permission.
+          git checkout HEAD -- .github/workflows
           test -f package.json
           test -f client/package.json
           test -f server/package.json
@@ -35,7 +38,6 @@ jobs:
         run: |
           rm -rf source-parts
           rm -f .actions-trigger
-          rm -f .github/workflows/bootstrap-source.yml
 
       - name: Commit real SaveFlow source
         run: |
