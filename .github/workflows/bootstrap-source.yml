@@ -1,0 +1,46 @@
+name: Bootstrap SaveFlow source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'source-parts/**'
+      - '.github/workflows/bootstrap-source.yml'
+      - '.actions-trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Reconstruct SaveFlow source archive
+        shell: bash
+        run: |
+          cat             source-parts/part-00.b64             source-parts/part-01.b64             source-parts/part-02.b64             source-parts/part-03.b64             source-parts/part-04.b64             source-parts/part-05.b64             source-parts/part-06.b64             > /tmp/saveflow-deploy.b64
+          base64 --decode /tmp/saveflow-deploy.b64 > /tmp/saveflow-deploy.tar.gz
+          gzip -t /tmp/saveflow-deploy.tar.gz
+          tar -xzf /tmp/saveflow-deploy.tar.gz --strip-components=1
+          test -f package.json
+          test -f client/package.json
+          test -f server/package.json
+          test -f render.yaml
+
+      - name: Remove one-time bootstrap files
+        run: |
+          rm -rf source-parts
+          rm -f .actions-trigger
+          rm -f .github/workflows/bootstrap-source.yml
+
+      - name: Commit real SaveFlow source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "deploy: install SaveFlow React website source"
+          git push
