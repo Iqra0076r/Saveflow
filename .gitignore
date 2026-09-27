@@ -1,8 +1,7 @@
 node_modules/
-client/dist/
+dist/
 .env
-.env.local
-.DS_Store
+server/.tmp/
+server/bin/yt-dlp
 *.log
-tmp/
-downloads/
+.DS_Store

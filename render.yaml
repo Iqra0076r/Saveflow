@@ -3,21 +3,24 @@ services:
     name: saveflow-api-iqra0076r
     runtime: docker
     plan: free
-    region: singapore
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /api/health
-    autoDeployTrigger: checksPass
+    autoDeployTrigger: commit
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
       - key: FRONTEND_URL
         value: https://iqra0076r.github.io
       - key: MAX_FILE_SIZE_MB
-        value: 250
+        value: 500
       - key: MAX_VIDEO_DURATION_MINUTES
         value: 60
       - key: TEMP_FILE_TTL_MINUTES
         value: 30
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_SESSION_SECRET
+        generateValue: true

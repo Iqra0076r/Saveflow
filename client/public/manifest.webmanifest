@@ -1,0 +1,10 @@
+{
+  "name": "SaveFlow",
+  "short_name": "SaveFlow",
+  "description": "Download permitted public social videos with a premium paste-detect-download flow.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090713",
+  "theme_color": "#090713",
+  "icons": []
+}
