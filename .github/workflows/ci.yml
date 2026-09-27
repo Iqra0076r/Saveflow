@@ -17,11 +17,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install
+          cache: npm
+      - name: Install dependencies
         run: npm install
-      - name: Check server syntax
-        run: node --check server/index.mjs
-      - name: Build React frontend
-        run: npm run build -w client
+      - name: Build React frontend and TypeScript backend
+        run: npm run build
       - name: Build production Docker image
         run: docker build -t saveflow:${{ github.sha }} .
