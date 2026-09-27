@@ -108,3 +108,6 @@ This repository includes `render.yaml` for a free Docker web service named `save
 5. GitHub Pages uses that URL by default. You can override it by creating a repository variable named `VITE_API_URL`.
 
 Render Free web services can sleep after inactivity, so the first request after a quiet period can be slower. Temporary downloads are intentionally stored only on the ephemeral filesystem and are cleaned up automatically.
+
+
+<!-- deployment-trigger: source-installed-2026-09-28 -->
