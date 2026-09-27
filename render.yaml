@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: saveflow-api-iqra0076r
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_URL
+        value: https://iqra0076r.github.io
+      - key: MAX_FILE_SIZE_MB
+        value: 250
+      - key: MAX_VIDEO_DURATION_MINUTES
+        value: 60
+      - key: TEMP_FILE_TTL_MINUTES
+        value: 30
